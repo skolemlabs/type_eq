@@ -1,6 +1,7 @@
 (lang dune 3.1)
 
 (name type_eq)
+
 (version 0.0.1)
 
 (generate_opam_files true)
@@ -20,6 +21,7 @@
  (name type_eq)
  (synopsis "Type equality proofs for OCaml 4")
  (depends
-  ocaml
+  (ocaml
+   (>= 4.03))
   dune
   (alcotest :with-test)))
