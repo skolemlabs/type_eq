@@ -10,11 +10,12 @@ license: "MIT"
 homepage: "https://github.com/skolemlabs/type_eq"
 bug-reports: "https://github.com/skolemlabs/type_eq/issues"
 depends: [
-  "ocaml"
+  "ocaml" {>= "4.03"}
   "dune" {>= "3.1"}
   "alcotest" {with-test}
   "odoc" {with-doc}
 ]
+dev-repo: "git+https://github.com/skolemlabs/type_eq.git"
 build: [
   ["dune" "subst"] {dev}
   [
@@ -25,8 +26,7 @@ build: [
     "-j"
     jobs
     "@install"
-    "@runtest" {with-test}
+    "@runtest" {with-test & ocaml:version >= "4.08"}
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/skolemlabs/type_eq.git"
