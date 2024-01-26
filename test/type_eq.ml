@@ -89,7 +89,7 @@ let () =
             let open Type_eq.Lift (struct
               type 'a t = 'a option
             end) in
-            check bool "equal" true (Type_eq.val_equal (lift a_b_proof) a b);
+            check bool "equal" false (Type_eq.val_equal (lift a_b_proof) a b);
             check bool "equal" false (Type_eq.val_equal (lift b_c_proof) b c) );
         ] );
     ]

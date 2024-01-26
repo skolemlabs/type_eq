@@ -52,26 +52,37 @@
             duneVersion = "3";
             src = sources.ocaml;
 
-            buildInputs = [ ];
-
             strictDeps = true;
 
             preBuild = "dune build ${project.name}.opam";
           };
         };
 
-        devShells = {
-          default = legacyPackages.mkShell {
-            packages = [
-              legacyPackages.fswatch
-              legacyPackages.ocamlformat
-              ocamlPackages.ocaml-lsp
+        devShells =
+          let
+            testPackages = [
+              ocamlPackages.alcotest
             ];
+          in
+          {
+            ci = legacyPackages.mkShell {
+              packages = testPackages;
 
-            inputsFrom = [
-              self.packages.${system}.${project.name}
-            ];
+              inputsFrom = [
+                self.packages.${system}.${project.name}
+              ];
+            };
+            default = legacyPackages.mkShell {
+              packages = testPackages ++ [
+                legacyPackages.fswatch
+                legacyPackages.ocamlformat
+                ocamlPackages.ocaml-lsp
+              ];
+
+              inputsFrom = [
+                self.packages.${system}.${project.name}
+              ];
+            };
           };
-        };
       });
 }
